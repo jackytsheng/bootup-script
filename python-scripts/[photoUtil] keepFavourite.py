@@ -1,4 +1,5 @@
 import os
+import shutil
 from os import listdir
 from os.path import isfile, join
 
@@ -41,7 +42,7 @@ filesToBeDeletedName = [f+"."+deleteDict[f] for f in filesToBeDeleted]
 filesToBeDeletedName.sort()
 print("files to be deleted are the following")
 print(filesToBeDeletedName)
-confirm = input("are you sure you want to delete the files [Y/N] ? ")
+confirm = input("do you want to direct delete the files [Y/N] ? ")
 
 if confirm == "Y" or confirm == "y":
 	print("removing files ...")
@@ -49,3 +50,11 @@ if confirm == "Y" or confirm == "y":
 		os.remove(toDelete+"/"+f)
 
 	print("finish removing all files ...")
+
+print("moving files into temp folder...")
+
+os.mkdir(toDelete+'/temp')
+for f in filesToBeDeletedName:
+  shutil.copyfile(toDelete+"/"+f,toDelete+'/temp/'+f)
+
+print("finish removing all files ...")
